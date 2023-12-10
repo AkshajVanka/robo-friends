@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import CardList from './CardList';
-import SearchBox from'./SearchBox';
-import Scroll from './Scroll';
+import CardList from '../components/CardList';
+import SearchBox from'../components/SearchBox';
+import Scroll from '../components/Scroll';
 import './App.css'
 
 class App extends Component {
@@ -30,17 +30,15 @@ class App extends Component {
     }
 
     render() {
-        var searchValue = this.state.searchField.toLowerCase();
-        const filteredRoboFriends = this.state.robots.filter(robo => {
-            return robo.username.toLowerCase().indexOf(searchValue)>-1 || robo.name.toLowerCase().indexOf(searchValue)>-1 || robo.email.toLowerCase().indexOf(searchValue)>-1;
+        const {searchField, robots} = this.state;
+        var searchValue = searchField.toLowerCase();
+        const filteredRoboFriends = robots.filter(robot => {
+            return robot.username.toLowerCase().indexOf(searchValue)>-1 || robot.name.toLowerCase().indexOf(searchValue)>-1 || robot.email.toLowerCase().indexOf(searchValue)>-1;
         });
 
-        if(this.state.robots.length === 0) {
-            return (
-                <h1>LOADING!!!</h1>
-            )
-        } else {
-            return (
+        return !robots.length? 
+            <h1>LOADING!!!</h1>: 
+            (
                 <div className='tc'>
                     <h1 className='f1'>RoboFriends</h1>
                     <SearchBox searchChange = {this.onSearchBoxChange}/>
@@ -48,8 +46,7 @@ class App extends Component {
                         <CardList robots = {filteredRoboFriends}/>
                     </Scroll>
                 </div>
-            )
-        }
+            );
     }
 }
 
