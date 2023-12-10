@@ -4,6 +4,8 @@ import Card from './Card';
 const CardList = (props) => {
     const {robots} = props;
     const cardComponent = robots.map((userDeatils, i) => {
+        // if(true)
+        //     throw new Error('NOOOO!');
         return (
             <Card 
                 key={i} 
